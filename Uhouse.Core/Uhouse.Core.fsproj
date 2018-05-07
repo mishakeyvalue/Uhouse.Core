@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="C:\Users\mitutee\source\repos\Uhouse.Core\Uhouse.Hardware.DS18S20\Uhouse.Hardware.DS18S20.fsproj" />
+    <ProjectReference Include="..\Uhouse.Hardware.DS18S20\Uhouse.Hardware.DS18S20.fsproj" />
   </ItemGroup>
 
 </Project>
