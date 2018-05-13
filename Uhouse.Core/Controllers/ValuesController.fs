@@ -5,14 +5,17 @@ open System.Collections.Generic
 open System.Linq
 open System.Threading.Tasks
 open Microsoft.AspNetCore.Mvc
+open Uhouse.Core.Persistence
+open Uhouse.Core.Persistence
 
 [<Route("api/[controller]")>]
 type ValuesController () =
     inherit Controller()
-
+    
     [<HttpGet>]
     member this.Get() =
-        [|"value1"; "value2"|]
+        Persistence.readTemp
+        
 
     [<HttpGet("{id}")>]
     member this.Get(id:int) =

@@ -6,17 +6,20 @@ open Utils
 
 type Temperature = double
 
-let rootDeviceDir = "/sys/bus/w1/devices/"
+let private rootDeviceDir = "/sys/bus/w1/devices/"
 
-let getFullFilePath deviceName = Path.Combine (rootDeviceDir, deviceName, "w1_slave")
+let private getFullFilePath deviceName = Path.Combine (rootDeviceDir, deviceName, "w1_slave")
 
-let pickTemperatureFile = Seq.tryFind (s_isPrefixOf "10")
+let private pickTemperatureFile = Seq.tryFind (s_isPrefixOf "10")
 
-let getTemperatureFile = 
-       pickTemperatureFile (System.IO.Directory.GetDirectories rootDeviceDir |> Seq.map (fun x -> Path.GetDirectoryName(x)))
+let private parseToFloat (cs : char seq) = String.Concat(cs) |> float |> fun x -> x / 1000.0
+
+let getTemperatureFile' getDirectories =
+       pickTemperatureFile (getDirectories |> Seq.map (fun x -> Path.GetFileName(x)))
     |> Option.map getFullFilePath
 
-let parseToFloat (cs : char seq) = String.Concat(cs) |> float |> fun x -> x / 1000.0
+let getTemperatureFile() = getTemperatureFile' (System.IO.Directory.GetDirectories rootDeviceDir)
+
 
 let mapTemperature (s : string) = 
     words s 
@@ -24,4 +27,4 @@ let mapTemperature (s : string) =
     |> asum
     |> Option.map parseToFloat
 
-let readTemperature f = File.ReadAllLines f |> Seq.map mapTemperature
+let readTemperature f = File.ReadAllLines f |> Array.map mapTemperature |> Array.toList |> asum

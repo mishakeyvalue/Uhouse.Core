@@ -5,6 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="publish\**" />
+    <EmbeddedResource Remove="publish\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Persistence.fs" />
     <Compile Include="Controllers/ValuesController.fs" />
     <Compile Include="Startup.fs" />
     <Compile Include="Program.fs" />
@@ -12,10 +18,17 @@
 
   <ItemGroup>
     <None Include="deployToPi.ps1" />
+    <None Include="this.sqlite" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Dapper" Version="1.50.4" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.6" />
+    <PackageReference Include="SQLitePCLRaw.bundle_e_sqlite3" Version="1.1.11" />
+    <PackageReference Include="SQLitePCLRaw.bundle_green" Version="1.1.11" />
+    <PackageReference Include="SQLitePCLRaw.lib.e_sqlite3.linux" Version="1.1.11" />
+    <PackageReference Include="SQLitePCLRaw.ugly" Version="1.1.11" />
+    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.108" />
   </ItemGroup>
 
   <ItemGroup>
