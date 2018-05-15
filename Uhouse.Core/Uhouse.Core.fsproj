@@ -10,6 +10,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Include="ITemperatureReader.fs" />
+    <Compile Include="TemperatureReaders.fs" />
     <Compile Include="Persistence.fs" />
     <Compile Include="Controllers/ValuesController.fs" />
     <Compile Include="Startup.fs" />
@@ -28,7 +30,6 @@
     <PackageReference Include="SQLitePCLRaw.bundle_green" Version="1.1.11" />
     <PackageReference Include="SQLitePCLRaw.lib.e_sqlite3.linux" Version="1.1.11" />
     <PackageReference Include="SQLitePCLRaw.ugly" Version="1.1.11" />
-    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.108" />
   </ItemGroup>
 
   <ItemGroup>

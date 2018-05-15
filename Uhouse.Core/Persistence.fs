@@ -2,11 +2,9 @@
 
 module Persistence =
 
-    open System
     open System.Collections.Generic
     open Dapper
     open Microsoft.Data.Sqlite
-    open System.Linq
 
     type TemperatureRecord = {
             Value:float;
@@ -35,6 +33,6 @@ module Persistence =
 
     let initQuery = "CREATE TABLE IF NOT EXISTS TEMPERATURE (Value float, Timestamp DateTime);"
     let structureCommand = new SqliteCommand(initQuery, connection)
-    structureCommand.ExecuteNonQuery() 
+    structureCommand.ExecuteNonQuery()  |> ignore
 
 

@@ -26,22 +26,7 @@ module Program =
             .UseStartup<Startup>()
             .Build()
 
-    let startLogging() =
-        let temperatureFile = Sensor.getTemperatureFile() |> Option.defaultValue ""
-        if temperatureFile = "" then nullArg "temperature file"
-
-        while true do
-            match Sensor.readTemperature temperatureFile with
-                | Some t -> 
-                    Persistence.insertTemperatureRecord {Value = t; Timestamp = DateTime.UtcNow.ToString() }
-                    printf "%A" {Value = t; Timestamp = DateTime.UtcNow.ToString() }
-                | _      -> ()
-            Thread.Sleep(1000)
-        ()
-
     [<EntryPoint>]
     let main args =        
-        Task.Factory.StartNew(startLogging)
         BuildWebHost(args).Run()
-
         exitCode

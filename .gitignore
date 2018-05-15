@@ -290,3 +290,4 @@ __pycache__/
 .uhouse-core-publish
 .publish
 publish
+this.sqlite
