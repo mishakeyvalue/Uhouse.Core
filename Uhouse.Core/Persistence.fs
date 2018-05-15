@@ -1,6 +1,7 @@
 ﻿module Uhouse.Core.Persistence
 
 open Dapper
+open System
 open Microsoft.Data.Sqlite
 
 let private execute' (f : SqliteConnection -> 'T) : 'T =        
@@ -22,6 +23,10 @@ let private nonQuery' sql c =
 
 let private nonQuery sql = execute' (nonQuery' sql)
 
+let init() =
+    let initQuery = "CREATE TABLE IF NOT EXISTS TEMPERATURE (Value float, Timestamp DateTime);"
+    nonQuery initQuery |> ignore
+
 type TemperatureRecord = {
         Value:float;
         Timestamp:string;
@@ -30,13 +35,16 @@ type TemperatureRecord = {
 let insertTemperatureRecord (data:TemperatureRecord) =
     let insertQuery = "INSERT INTO TEMPERATURE(value, Timestamp) VALUES (@Value, @Timestamp)"
     execute insertQuery  data |> ignore
+   
+let private readTempSql = "SELECT Value, Timestamp FROM TEMPERATURE"
 
-let readTemp() = 
-    let readTempSql = "SELECT Value, Timestamp FROM TEMPERATURE"
+let readTemperature() = 
     query<TemperatureRecord> readTempSql
 
-let private initQuery = "CREATE TABLE IF NOT EXISTS TEMPERATURE (Value float, Timestamp DateTime);"
-nonQuery initQuery |> ignore
+let forPeriod (fromDate : DateTime) (toDate : DateTime) =
+    let sql = readTempSql + (sprintf " WHERE Timestamp >= \"%s\" AND Timestamp <= \"%s\"" (fromDate.ToString()) (toDate.ToString()))
+    query<TemperatureRecord> sql
+
 
 
 
