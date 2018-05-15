@@ -1,12 +1,7 @@
 ﻿namespace Uhouse.Core.Controllers
 
-open System
-open System.Collections.Generic
-open System.Linq
-open System.Threading.Tasks
 open Microsoft.AspNetCore.Mvc
-open Uhouse.Core.Persistence
-open Uhouse.Core.Persistence
+open Uhouse.Core
 
 [<Route("api/[controller]")>]
 type ValuesController () =
@@ -14,7 +9,7 @@ type ValuesController () =
     
     [<HttpGet>]
     member this.Get() =
-        Persistence.readTemp
+        Persistence.readTemp()
         
 
     [<HttpGet("{id}")>]
