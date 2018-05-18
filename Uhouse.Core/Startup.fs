@@ -1,8 +1,6 @@
 namespace Uhouse.Core
 
 open System
-open System.Collections.Generic
-open System.Linq
 open System.Threading.Tasks
 open Microsoft.AspNetCore.Builder
 open Microsoft.AspNetCore.Hosting
@@ -10,6 +8,9 @@ open Microsoft.Extensions.Configuration
 open Microsoft.Extensions.DependencyInjection
 open Uhouse.Core.Persistence
 open System.Threading
+open Swashbuckle.AspNetCore.Swagger
+open Swashbuckle.AspNetCore.SwaggerGen
+open System.IO
 
 
 type Startup private () =
@@ -36,8 +37,19 @@ type Startup private () =
                 else TemperatureReaders.getSensorReader()
         services.AddSingleton<ITemperatureReader>(getService) |> ignore
         services.AddScoped<ITemperatureService, TemperatureService>() |> ignore
+
+        let info = new Info(Title = "uHouse master node API", Version = "v1")
+        let swaggerGen (c :SwaggerGenOptions)= 
+            c.SwaggerDoc("v1", info)
+            let xmlPath = Path.Combine(AppContext.BaseDirectory, "DOC.XML")
+            c.IncludeXmlComments xmlPath
+            let schemaFactory() : Schema =
+                new Schema(Example = { Value = 22.65; Timestamp = DateTime.UtcNow.ToString()})
+            c.MapType<TemperatureRecord>(Func<Schema>(schemaFactory))
+        services.AddSwaggerGen(Action<SwaggerGenOptions>(swaggerGen)) |> ignore
         // Add framework services.
-        services.AddMvc() |> ignore        
+        services.AddMvc() |> ignore
+
 
 
 
@@ -46,6 +58,8 @@ type Startup private () =
         
         let startLogging'() = app.ApplicationServices.GetService<ITemperatureReader>() |> startLogging
         Task.Factory.StartNew(startLogging') |> ignore
+
+        app.UseSwagger() |> ignore
         app.UseMvc() |> ignore
         
    
