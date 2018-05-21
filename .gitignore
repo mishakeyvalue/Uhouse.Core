@@ -292,3 +292,4 @@ __pycache__/
 publish
 Uhouse.Core/this.sqlite
 *.sqlite
+Uhouse.Core/this.sqlite-journal
