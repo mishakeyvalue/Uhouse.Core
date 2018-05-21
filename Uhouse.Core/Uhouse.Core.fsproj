@@ -18,13 +18,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Include="Services\Lamp\ILampService.fs" />
+    <Compile Include="Services\Lamp\LampService.fs" />
     <Compile Include="TemperatureHelpers.fs" />
-    <Compile Include="ITemperatureReader.fs" />
-    <Compile Include="TemperatureReaders.fs" />
+    <Compile Include="Services\Temperature\ITemperatureReader.fs" />
+    <Compile Include="Services\Temperature\TemperatureReaders.fs" />
     <Compile Include="Persistence.fs" />
-    <Compile Include="ITemperatureService.fs" />
-    <Compile Include="TemperatureService.fs" />
+    <Compile Include="Services\Temperature\ITemperatureService.fs" />
+    <Compile Include="Services\Temperature\TemperatureService.fs" />
     <Compile Include="Controllers\TemperatureController.fs" />
+    <Compile Include="Controllers\LampController.fs" />
     <Compile Include="Startup.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
@@ -46,6 +49,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Uhouse.Hardware.DS18S20\Uhouse.Hardware.DS18S20.fsproj" />
+    <ProjectReference Include="..\Uhouse.Hardware.Relay\Uhouse.Hardware.Relay.fsproj" />
   </ItemGroup>
 
 </Project>

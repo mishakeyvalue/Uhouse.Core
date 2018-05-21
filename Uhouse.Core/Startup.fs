@@ -11,6 +11,7 @@ open System.Threading
 open Swashbuckle.AspNetCore.Swagger
 open Swashbuckle.AspNetCore.SwaggerGen
 open System.IO
+open Uhouse.Hardware.Relay
 
 
 type Startup private () =
@@ -37,6 +38,13 @@ type Startup private () =
                 else TemperatureReaders.getSensorReader()
         services.AddSingleton<ITemperatureReader>(getService) |> ignore
         services.AddScoped<ITemperatureService, TemperatureService>() |> ignore
+
+        let relayControlFactory _ =
+            if this.HostingEnvironment.IsDevelopment() 
+                then LampService.getDummyService()
+                else LampService.getRelayService 12
+        services.AddSingleton<ILampService>(relayControlFactory) |> ignore
+
 
         let info = new Info(Title = "uHouse master node API", Version = "v1")
         let swaggerGen (c :SwaggerGenOptions)= 
