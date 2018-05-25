@@ -4,8 +4,10 @@ open Microsoft.AspNetCore.Mvc
 open Uhouse.Core
 open System
 open TemperatureHelpers
+open Microsoft.AspNetCore.Cors
 
 [<Route("api/[controller]")>]
+[<EnableCors("SiteCorsPolicy")>]
 type TemperatureController (service : ITemperatureService) =
     inherit Controller()   
 

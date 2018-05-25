@@ -11,8 +11,7 @@ open System.Threading
 open Swashbuckle.AspNetCore.Swagger
 open Swashbuckle.AspNetCore.SwaggerGen
 open System.IO
-open Uhouse.Hardware.Relay
-
+open Microsoft.AspNetCore.Cors.Infrastructure
 
 type Startup private () =
     let startLogging (reader : ITemperatureReader) =
@@ -38,6 +37,18 @@ type Startup private () =
                 else TemperatureReaders.getSensorReader()
         services.AddSingleton<ITemperatureReader>(getService) |> ignore
         services.AddScoped<ITemperatureService, TemperatureService>() |> ignore
+        
+        let corsBuilder = new CorsPolicyBuilder()
+        corsBuilder
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowAnyOrigin()
+            .AllowCredentials()
+        |> ignore
+
+        let opt (o:CorsOptions) = o.AddPolicy("SiteCorsPolicy", corsBuilder.Build())
+
+        services.AddCors(Action<CorsOptions>(opt)) |> ignore
 
         let relayControlFactory _ =
             if this.HostingEnvironment.IsDevelopment() 
@@ -59,8 +70,6 @@ type Startup private () =
         services.AddMvc() |> ignore
 
 
-
-
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
     member this.Configure(app: IApplicationBuilder, env: IHostingEnvironment) =
         
@@ -69,7 +78,7 @@ type Startup private () =
 
         app.UseSwagger() |> ignore
         app.UseMvc() |> ignore
-        
+        app.UseCors("SiteCorsPolicy") |> ignore
    
 
     member val Configuration : IConfiguration = null with get, set
