@@ -1,8 +1,10 @@
 let BaseUri = "http://192.168.0.103:8000"
 let SnakeDelay = 200
+let CockroachDelay = 200
 
 open System.Net
 open System
+open System.Threading
 
 let post uri =        
     let req = WebRequest.CreateHttp(Uri(uri),Method="POST",ContentLength=0L) 
@@ -23,11 +25,21 @@ let PinIds = [ 0 .. 5 ]
 
 let delay t action = 
     action
-    System.Threading.Thread.Sleep(t: int)
+    Thread.Sleep(t: int)
 
 let rec blinkySnake(): unit =
     List.iter (on  >> delay SnakeDelay) PinIds
     List.iter (off >> delay SnakeDelay) PinIds
     blinkySnake()
 
-blinkySnake()
+let rec blinkyCockroach(): unit =
+    let step curr prev = 
+        off prev
+        on curr
+        Thread.Sleep CockroachDelay
+        curr
+    List.foldBack step PinIds 0
+    blinkyCockroach()
+
+// blinkySnake()
+blinkyCockroach()
