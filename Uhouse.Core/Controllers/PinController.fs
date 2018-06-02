@@ -9,14 +9,14 @@ type PinController (pinControl : IPinControl) =
     /// <summary>
     /// Enables the GPIO pin with the given id.
     /// </summary>
-    [<HttpPost("on")>]
+    [<HttpPost("{id}/on")>]
     member __.On id = 
         pinControl.TurnOn id
 
     /// <summary>
     /// Disables the GPIO pin with the given id.
     /// </summary>
-    [<HttpPost("off")>]
+    [<HttpPost("{id}/off")>]
     member __.Off id =
         pinControl.TurnOff id
 
@@ -24,6 +24,6 @@ type PinController (pinControl : IPinControl) =
     /// <summary>
     /// Checks if the pin with the given id is turned on.
     /// </summary>
-    [<HttpGet("isEnabled")>]
+    [<HttpGet("{id}/isEnabled")>]
     member __.IsEnabled id =
         pinControl.IsEnabled id
