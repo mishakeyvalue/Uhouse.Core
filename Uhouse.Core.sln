@@ -11,7 +11,7 @@ Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Test.Uhouse.Hardware.DS18S2
 EndProject
 Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Uhouse.Core", "Uhouse.Core\Uhouse.Core.fsproj", "{FF72B55D-0741-4502-BDFA-AC0E834D64DF}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Uhouse.Hardware.Relay", "Uhouse.Hardware.Relay\Uhouse.Hardware.Relay.fsproj", "{D76BB4F7-DEA6-4EA9-8D58-74EA2BD7B0A5}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Uhouse.Hardware.GpioPins", "Uhouse.Hardware.GpioPins\Uhouse.Hardware.GpioPins.fsproj", "{0C9E677F-ADA0-467D-91BF-03AAA2710063}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,10 +31,10 @@ Global
 		{FF72B55D-0741-4502-BDFA-AC0E834D64DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FF72B55D-0741-4502-BDFA-AC0E834D64DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FF72B55D-0741-4502-BDFA-AC0E834D64DF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D76BB4F7-DEA6-4EA9-8D58-74EA2BD7B0A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D76BB4F7-DEA6-4EA9-8D58-74EA2BD7B0A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D76BB4F7-DEA6-4EA9-8D58-74EA2BD7B0A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D76BB4F7-DEA6-4EA9-8D58-74EA2BD7B0A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C9E677F-ADA0-467D-91BF-03AAA2710063}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C9E677F-ADA0-467D-91BF-03AAA2710063}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C9E677F-ADA0-467D-91BF-03AAA2710063}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C9E677F-ADA0-467D-91BF-03AAA2710063}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -12,6 +12,7 @@ open Swashbuckle.AspNetCore.Swagger
 open Swashbuckle.AspNetCore.SwaggerGen
 open System.IO
 open Microsoft.AspNetCore.Cors.Infrastructure
+open Uhouse.Hardware.PinControl
 
 type Startup private () =
     let startLogging (reader : ITemperatureReader) =
@@ -50,11 +51,11 @@ type Startup private () =
 
         services.AddCors(Action<CorsOptions>(opt)) |> ignore
 
-        let relayControlFactory _ =
+        let pinControlFactory _ =
             if this.HostingEnvironment.IsDevelopment() 
-                then LampService.getDummyService()
-                else LampService.getRelayService 12
-        services.AddSingleton<ILampService>(relayControlFactory) |> ignore
+                then PinControlFactory.getDummyPinControl()
+                else PinControlFactory.getPinControl()
+        services.AddSingleton<IPinControl>(pinControlFactory) |> ignore
 
 
         let info = new Info(Title = "uHouse master node API", Version = "v1")

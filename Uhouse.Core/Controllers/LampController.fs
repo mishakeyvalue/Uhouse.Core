@@ -1,26 +1,25 @@
 ﻿namespace Uhouse.Core.Controllers
 
 open Microsoft.AspNetCore.Mvc
-open Uhouse.Core
-open Uhouse.Hardware.Relay
+open Uhouse.Hardware.PinControl
 
 [<Route("api/[controller]")>]
-type LampController (lampService : ILampService) =
+type LampController (pinControl : IPinControl) =
     inherit Controller()   
-
+    let LampGpio = 12;
     /// <summary>
     /// Turns the lamp on.
     /// </summary>
     [<HttpPost("on")>]
     member __.On() = 
-        lampService.TurnOn()
+        pinControl.TurnOn LampGpio
 
     /// <summary>
     /// Turns the lamp off.
     /// </summary>
     [<HttpPost("off")>]
     member __.Off() =
-        lampService.TurnOff()
+        pinControl.TurnOff LampGpio
 
 
     /// <summary>
@@ -28,4 +27,4 @@ type LampController (lampService : ILampService) =
     /// </summary>
     [<HttpGet("isEnabled")>]
     member __.IsEnabled() =
-        lampService.IsEnabled
+        pinControl.IsEnabled LampGpio
