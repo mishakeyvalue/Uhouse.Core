@@ -10,6 +10,7 @@ open Giraffe
 open Uhouse.Core.Web.HttpHandlers
 open Uhouse.Core.Web
 open Uhouse.Core.PinScheduler
+open Uhouse.Hardware.PinControl
 
 // ---------------------------------
 // Web app
@@ -31,6 +32,12 @@ let webApp =
                         //])
 
                     ])
+                subRouteCi "/pin"
+                    (choose [
+                        POST >=> routeCif "/%i/on" (fun pinId -> pinControl.TurnOn pinId; Successful.OK ())
+                        POST >=> routeCif "/%i/off" (fun pinId -> pinControl.TurnOff pinId; Successful.OK ())
+                    ])
+
             ])
         setStatusCode 404 >=> text "Not Found" ]
 

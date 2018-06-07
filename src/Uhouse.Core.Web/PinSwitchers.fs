@@ -13,7 +13,7 @@ let getDummyPinSwitcher() =
     }
 
 let getPinSwitcher(pinId) =
-    let pinControl = PinControlFactory.getPinControl()
+    let pinControl = pinControl
     { new IPinSwitcher with
           member this.TurnOff(): unit = 
               pinControl.TurnOff pinId
