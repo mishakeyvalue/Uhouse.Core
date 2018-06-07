@@ -18,5 +18,5 @@ let getPinSwitcher(pinId) =
           member this.TurnOff(): unit = 
               pinControl.TurnOff pinId
           member this.TurnOn(): unit = 
-              pinControl.TurnOn pinId            
+              pinControl.TurnOn pinId   
     }

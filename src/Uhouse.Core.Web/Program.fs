@@ -76,7 +76,7 @@ let configureLogging (builder : ILoggingBuilder) =
 let main _ =
     WebHostBuilder()
         .UseKestrel()
-        .UseIISIntegration()
+        .UseUrls("http://*:8090")
         .Configure(Action<IApplicationBuilder> configureApp)
         .ConfigureServices(configureServices)
         .ConfigureLogging(configureLogging)

@@ -35,7 +35,7 @@ namespace Uhouse.Core.PinScheduler
             public Guid Schedule(DateTimeOffset startDate, TimeSpan duration)
             {
                 var id = Guid.NewGuid();
-                var job = JobBuilder.Create<PinSwitchJob>().WithIdentity(id.ToString()).Build();
+                var job = JobBuilder.Create<PinSwitchJob>().WithIdentity(id.ToString()).UsingJobData("duration", duration.ToString()).Build();
                 var trigger = TriggerBuilder.Create().StartAt(startDate).Build();
 
                 this.scheduler.ScheduleJob(job, trigger);
