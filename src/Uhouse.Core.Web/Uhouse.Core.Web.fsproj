@@ -14,7 +14,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.0.*" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics" Version="2.0.*" />
     <PackageReference Include="Microsoft.AspNetCore.Server.Kestrel" Version="2.0.*" />
-    <PackageReference Include="Microsoft.AspNetCore.Server.IISIntegration" Version="2.0.*"/>
+    <PackageReference Include="Microsoft.AspNetCore.Server.IISIntegration" Version="2.0.*" />
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="2.0.*" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="2.0.*" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.0.*" />
@@ -23,12 +23,18 @@
 
   <ItemGroup>
     <Compile Include="Models.fs" />
+    <Compile Include="PinSwitchers.fs" />
     <Compile Include="HttpHandlers.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="web.config" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Uhouse.Core.PinScheduler\Uhouse.Core.PinScheduler.csproj" />
+    <ProjectReference Include="..\Uhouse.Hardware.PinControl\Uhouse.Hardware.PinControl.fsproj" />
   </ItemGroup>
 
 </Project>

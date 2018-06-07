@@ -8,6 +8,8 @@ open Microsoft.Extensions.Logging
 open Microsoft.Extensions.DependencyInjection
 open Giraffe
 open Uhouse.Core.Web.HttpHandlers
+open Uhouse.Core.Web
+open Uhouse.Core.PinScheduler
 
 // ---------------------------------
 // Web app
@@ -58,7 +60,11 @@ let configureApp (app : IApplicationBuilder) =
         .UseCors(configureCors)
         .UseGiraffe(webApp)
 
-let configureServices (services : IServiceCollection) =
+let configureServices (ctx: WebHostBuilderContext) (services : IServiceCollection) =        
+    let pinSwitcher = if ctx.HostingEnvironment.IsDevelopment() then PinSwitchers.getDummyPinSwitcher() else PinSwitchers.getPinSwitcher 0
+    let pinScheduler = (PinSchedulerFactory.Init pinSwitcher).Result
+    services.Add(ServiceDescriptor(typeof<IPinScheduler>, pinScheduler))
+
     services.AddCors()    |> ignore
     services.AddGiraffe() |> ignore
 

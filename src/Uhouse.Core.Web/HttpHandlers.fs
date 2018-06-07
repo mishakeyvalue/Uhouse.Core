@@ -4,8 +4,10 @@ module HttpHandlers =
 
     open Microsoft.AspNetCore.Http
     open Giraffe
+    open System
     open Uhouse.Core.Web.Models
     open Giraffe.HttpStatusCodeHandlers
+    open Uhouse.Core.PinScheduler
 
     let handleGetHello =
         fun (next : HttpFunc) (ctx : HttpContext) ->
@@ -17,6 +19,8 @@ module HttpHandlers =
         fun (next: HttpFunc) (ctx : HttpContext) ->
             task {
                 let! model = ctx.BindFormAsync<ScheduleModel>()
-                let res = sprintf "You have scheduled quartz lamp for %A from now for %A" model.delay model.duration
-                return! json res next ctx
+                let service = ctx.GetService<IPinScheduler>()
+                let startDate = DateTimeOffset.Now.Add(Option.defaultValue TimeSpan.Zero model.delay)
+                let id = service.Schedule(startDate, model.duration)                
+                return! text (id.ToString()) next ctx
             }
