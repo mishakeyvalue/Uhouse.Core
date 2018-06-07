@@ -9,6 +9,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{33069CF8
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.Uhouse.Core.PinScheduler", "Tests.Uhouse.Core.PinScheduler\Tests.Uhouse.Core.PinScheduler.csproj", "{9E9F46E7-2777-4AAE-9B4F-DCF015166BA2}"
 EndProject
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Uhouse.Core.Web", "Uhouse.Core.Web\Uhouse.Core.Web.fsproj", "{8151D495-CE67-443A-B0B2-C09393C2E67A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +25,10 @@ Global
 		{9E9F46E7-2777-4AAE-9B4F-DCF015166BA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9E9F46E7-2777-4AAE-9B4F-DCF015166BA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9E9F46E7-2777-4AAE-9B4F-DCF015166BA2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8151D495-CE67-443A-B0B2-C09393C2E67A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8151D495-CE67-443A-B0B2-C09393C2E67A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8151D495-CE67-443A-B0B2-C09393C2E67A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8151D495-CE67-443A-B0B2-C09393C2E67A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
