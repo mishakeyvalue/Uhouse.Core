@@ -11,10 +11,25 @@ open Uhouse.Core.Web.HttpHandlers
 open Uhouse.Core.Web
 open Uhouse.Core.PinScheduler
 open Uhouse.Hardware.PinControl
+open Uhouse.Core.Web.Models
+open System.Collections.Generic
 
+let dummyPinControl = 
+    let pins = new Dictionary<int, bool>()
+    for i in 0..42 do
+        pins.Add(i, false)
+    {new IPinControl with
+                            member this.IsEnabled(id: PinId): bool = 
+                                pins.[id]
+                            member this.TurnOff(id: PinId): unit = 
+                                pins.[id] <- false
+                            member this.TurnOn(id: PinId): unit = 
+                                pins.[id] <- true
+    }
 // ---------------------------------
 // Web app
 // ---------------------------------
+let parsingErrorHandler err = RequestErrors.BAD_REQUEST err
 
 let webApp =
     choose [
@@ -26,16 +41,13 @@ let webApp =
                             (choose [
                                 POST >=> routeCi "/now" >=> scheduleHandler
                             ])
-                        //subRoute "/schedule" 
-                        //(choose [
-                        //    POST >=> text ""
-                        //])
 
                     ])
                 subRouteCi "/pin"
                     (choose [
-                        POST >=> routeCif "/%i/on" (fun pinId -> pinControl.TurnOn pinId; Successful.OK ())
-                        POST >=> routeCif "/%i/off" (fun pinId -> pinControl.TurnOff pinId; Successful.OK ())
+                        route "/status" >=> tryBindQuery<PinStatusRequestModel> parsingErrorHandler None pinStatusHandler
+                        POST >=> routeCif "/%i/on" (fun pinId -> switchHandler pinId TurnOn)
+                        POST >=> routeCif "/%i/off" (fun pinId -> switchHandler pinId TurnOff)
                     ])
 
             ])
@@ -67,10 +79,17 @@ let configureApp (app : IApplicationBuilder) =
         .UseCors(configureCors)
         .UseGiraffe(webApp)
 
-let configureServices (ctx: WebHostBuilderContext) (services : IServiceCollection) =        
-    let pinSwitcher = if ctx.HostingEnvironment.IsDevelopment() then PinSwitchers.getDummyPinSwitcher() else PinSwitchers.getPinSwitcher 0
-    let pinScheduler = (PinSchedulerFactory.Init pinSwitcher).Result
-    services.Add(ServiceDescriptor(typeof<IPinScheduler>, pinScheduler))
+let configureServices (ctx: WebHostBuilderContext) (services : IServiceCollection) =
+    let pinControl _ = if ctx.HostingEnvironment.IsDevelopment() then dummyPinControl else pinControl
+    services.AddSingleton<IPinControl>(pinControl) |> ignore
+
+    services.AddScoped<PinSwitcher>() |> ignore 
+
+    let pinSchedulerFactory (servcices:IServiceProvider)=
+        let pinSwitcher = servcices.GetService<PinSwitcher>()
+        (PinSchedulerFactory.Init pinSwitcher).Result
+        
+    services.AddSingleton<IPinScheduler>(pinSchedulerFactory) |> ignore
 
     services.AddCors()    |> ignore
     services.AddGiraffe() |> ignore

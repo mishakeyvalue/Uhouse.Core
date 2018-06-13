@@ -6,14 +6,29 @@ module HttpHandlers =
     open Giraffe
     open System
     open Uhouse.Core.Web.Models
-    open Giraffe.HttpStatusCodeHandlers
     open Uhouse.Core.PinScheduler
-
-    let handleGetHello =
+    open Uhouse.Hardware.PinControl
+    type PinCommand = | TurnOn | TurnOff
+    let switchHandler pinId pinCommand =
         fun (next : HttpFunc) (ctx : HttpContext) ->
-            task {
-                return! json "Everything is OK!" next ctx
-            }
+          task {
+                let control = ctx.GetService<IPinControl>()
+                match pinCommand with
+                | TurnOn -> control.TurnOn pinId
+                | TurnOff -> control.TurnOff pinId
+                return! Successful.OK () next ctx
+          }
+
+    let pinStatusHandler model =
+        fun (next : HttpFunc) (ctx : HttpContext) ->
+           task {
+                let control = ctx.GetService<IPinControl>()
+                let result = model.pins 
+                            |> List.map (fun id -> (id, control.IsEnabled id))
+                            |> dict
+                return! json result next ctx
+           }
+
 
     let scheduleHandler = 
         fun (next: HttpFunc) (ctx : HttpContext) ->

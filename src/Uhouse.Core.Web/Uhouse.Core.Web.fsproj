@@ -23,7 +23,7 @@
 
   <ItemGroup>
     <Compile Include="Models.fs" />
-    <Compile Include="PinSwitchers.fs" />
+    <Compile Include="PinSwitcher.fs" />
     <Compile Include="HttpHandlers.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
