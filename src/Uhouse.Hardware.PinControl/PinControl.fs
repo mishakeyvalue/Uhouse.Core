@@ -14,8 +14,12 @@ open Unosquare.RaspberryIO.Gpio
 let pinControl : IPinControl =
     let run f pinId = 
         let pin = Pi.Gpio.Pins.Item pinId
-        pin.PinMode <- GpioPinDriveMode.Output 
-        f pin
+        try
+            f pin
+        with 
+        | :? System.InvalidOperationException -> 
+            pin.PinMode <- GpioPinDriveMode.Output
+            f pin
 
     { new IPinControl with
         member __.IsEnabled pinId = run (fun pin -> pin.Read()) pinId
