@@ -35,11 +35,11 @@ let webApp =
     choose [
         subRouteCi "/api"
             (choose [
-                subRouteCi "/quartz" 
+                subRouteCi "/lamp" 
                     (choose [
                         subRouteCi "/schedule" 
                             (choose [
-                                POST >=> routeCi "/now" >=> scheduleHandler
+                                POST >=> scheduleHandler
                             ])
 
                     ])
