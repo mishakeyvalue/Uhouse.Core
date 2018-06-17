@@ -1,4 +1,4 @@
-﻿namespace Uhouse.Core.Web
+﻿module Uhouse.Core.Web.Services
 
 open Uhouse.Core.PinScheduler
 open System
@@ -12,3 +12,11 @@ type PinSwitcher (control: IPinControl) =
           member this.TurnOn(): unit = 
               printfn "The pin is turned ON at %A" DateTime.Now
               control.TurnOn 12
+
+type ITemperatureReader =
+    abstract GetCurrent: unit -> double
+
+type TemperatureReader() =
+    let file = Sensor.getTemperatureFile() |> Option.get
+    interface ITemperatureReader with
+        member __.GetCurrent() = Sensor.readTemperature file |> Option.get

@@ -8,6 +8,8 @@ module HttpHandlers =
     open Uhouse.Core.Web.Models
     open Uhouse.Core.PinScheduler
     open Uhouse.Hardware.PinControl
+    open Services
+
     type PinCommand = | TurnOn | TurnOff
     let switchHandler pinId pinCommand =
         fun (next : HttpFunc) (ctx : HttpContext) ->
@@ -28,8 +30,12 @@ module HttpHandlers =
                             |> dict
                 return! json result next ctx
            }
-
-
+    let currentTemperatureHandler =
+        fun (next: HttpFunc) (ctx : HttpContext) ->
+            task {
+                let reader = ctx.GetService<ITemperatureReader>()
+                return! text (reader.GetCurrent().ToString()) next ctx
+            }
     let scheduleHandler = 
         fun (next: HttpFunc) (ctx : HttpContext) ->
             task {

@@ -12,20 +12,9 @@ open Uhouse.Core.Web
 open Uhouse.Core.PinScheduler
 open Uhouse.Hardware.PinControl
 open Uhouse.Core.Web.Models
-open System.Collections.Generic
+open Uhouse.Core.Web.InMemoryMocks
+open Services
 
-let dummyPinControl = 
-    let pins = new Dictionary<int, bool>()
-    for i in 0..42 do
-        pins.Add(i, false)
-    {new IPinControl with
-                            member this.IsEnabled(id: PinId): bool = 
-                                pins.[id]
-                            member this.TurnOff(id: PinId): unit = 
-                                pins.[id] <- false
-                            member this.TurnOn(id: PinId): unit = 
-                                pins.[id] <- true
-    }
 // ---------------------------------
 // Web app
 // ---------------------------------
@@ -48,6 +37,10 @@ let webApp =
                         route "/status" >=> tryBindQuery<PinStatusRequestModel> parsingErrorHandler None pinStatusHandler
                         POST >=> routeCif "/%i/on" (fun pinId -> switchHandler pinId TurnOn)
                         POST >=> routeCif "/%i/off" (fun pinId -> switchHandler pinId TurnOff)
+                    ])
+                subRouteCi "/temperature"
+                    (choose [
+                        GET >=> route "/current" >=> currentTemperatureHandler
                     ])
 
             ])
@@ -80,10 +73,17 @@ let configureApp (app : IApplicationBuilder) =
         .UseGiraffe(webApp)
 
 let configureServices (ctx: WebHostBuilderContext) (services : IServiceCollection) =
-    let pinControl _ = if ctx.HostingEnvironment.IsDevelopment() then dummyPinControl else pinControl
+    let isDevelopment = ctx.HostingEnvironment.IsDevelopment()
+    let pinControl _ = if isDevelopment then dummyPinControl else pinControl
     services.AddSingleton<IPinControl>(pinControl) |> ignore
 
     services.AddScoped<PinSwitcher>() |> ignore 
+
+    let temperatureReaderType = 
+        if isDevelopment 
+            then typeof<DummyTemperatureReader> 
+            else typeof<TemperatureReader>
+    services.AddSingleton(typeof<ITemperatureReader>, temperatureReaderType) |> ignore
 
     let pinSchedulerFactory (servcices:IServiceProvider)=
         let pinSwitcher = servcices.GetService<PinSwitcher>()

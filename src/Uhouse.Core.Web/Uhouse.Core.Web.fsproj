@@ -23,7 +23,8 @@
 
   <ItemGroup>
     <Compile Include="Models.fs" />
-    <Compile Include="PinSwitcher.fs" />
+    <Compile Include="Services.fs" />
+    <Compile Include="InMemoryMocks.fs" />
     <Compile Include="HttpHandlers.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
@@ -34,6 +35,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Uhouse.Core.PinScheduler\Uhouse.Core.PinScheduler.csproj" />
+    <ProjectReference Include="..\Uhouse.Hardware.DS18S20\Uhouse.Hardware.DS18S20.fsproj" />
     <ProjectReference Include="..\Uhouse.Hardware.PinControl\Uhouse.Hardware.PinControl.fsproj" />
   </ItemGroup>
 
