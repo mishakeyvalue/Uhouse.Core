@@ -34,7 +34,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Uhouse.Core.PinScheduler\Uhouse.Core.PinScheduler.csproj" />
+    <ProjectReference Include="..\Test.Uhouse.Core.PinSchedule\Test.Uhouse.Core.PinSchedule.fsproj" />
     <ProjectReference Include="..\Uhouse.Hardware.DS18S20\Uhouse.Hardware.DS18S20.fsproj" />
     <ProjectReference Include="..\Uhouse.Hardware.PinControl\Uhouse.Hardware.PinControl.fsproj" />
   </ItemGroup>

@@ -9,7 +9,6 @@ open Microsoft.Extensions.DependencyInjection
 open Giraffe
 open Uhouse.Core.Web.HttpHandlers
 open Uhouse.Core.Web
-open Uhouse.Core.PinScheduler
 open Uhouse.Hardware.PinControl
 open Uhouse.Core.Web.Models
 open Uhouse.Core.Web.InMemoryMocks
@@ -77,7 +76,7 @@ let configureServices (ctx: WebHostBuilderContext) (services : IServiceCollectio
     let pinControl _ = if isDevelopment then dummyPinControl else pinControl
     services.AddSingleton<IPinControl>(pinControl) |> ignore
 
-    services.AddScoped<PinSwitcher>() |> ignore 
+    //services.AddScoped<PinSwitcher>() |> ignore 
 
     let temperatureReaderType = 
         if isDevelopment 
@@ -85,11 +84,11 @@ let configureServices (ctx: WebHostBuilderContext) (services : IServiceCollectio
             else typeof<TemperatureReader>
     services.AddSingleton(typeof<ITemperatureReader>, temperatureReaderType) |> ignore
 
-    let pinSchedulerFactory (servcices:IServiceProvider)=
-        let pinSwitcher = servcices.GetService<PinSwitcher>()
-        (PinSchedulerFactory.Init pinSwitcher).Result
+    //let pinSchedulerFactory (servcices:IServiceProvider)=
+    //    let pinSwitcher = servcices.GetService<PinSwitcher>()
+    //    (PinSchedulerFactory.Init pinSwitcher).Result
         
-    services.AddSingleton<IPinScheduler>(pinSchedulerFactory) |> ignore
+    //services.AddSingleton<IPinScheduler>(pinSchedulerFactory) |> ignore
 
     services.AddCors()    |> ignore
     services.AddGiraffe() |> ignore

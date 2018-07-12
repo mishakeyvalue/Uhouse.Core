@@ -6,7 +6,6 @@ module HttpHandlers =
     open Giraffe
     open System
     open Uhouse.Core.Web.Models
-    open Uhouse.Core.PinScheduler
     open Uhouse.Hardware.PinControl
     open Services
 
@@ -40,8 +39,8 @@ module HttpHandlers =
         fun (next: HttpFunc) (ctx : HttpContext) ->
             task {
                 let! model = ctx.BindFormAsync<ScheduleModel>()
-                let service = ctx.GetService<IPinScheduler>()
-                let startDate = DateTimeOffset.Now.Add(Option.defaultValue TimeSpan.Zero model.delay)
-                let id = service.Schedule(startDate, model.duration)                
-                return! text (id.ToString()) next ctx
+                //let service = ctx.GetService<IPinScheduler>()
+                //let startDate = DateTimeOffset.Now.Add(Option.defaultValue TimeSpan.Zero model.delay)
+                //let id = service.Schedule(startDate, model.duration)                
+                return! text ("".ToString()) next ctx
             }

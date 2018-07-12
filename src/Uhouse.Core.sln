@@ -3,11 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2026
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Uhouse.Core.PinScheduler", "Uhouse.Core.PinScheduler\Uhouse.Core.PinScheduler.csproj", "{60ADE7C7-D690-45E9-86DC-2436BDF9F3EB}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{33069CF8-46E5-43EB-A59A-39B33F07C86C}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests.Uhouse.Core.PinScheduler", "Tests.Uhouse.Core.PinScheduler\Tests.Uhouse.Core.PinScheduler.csproj", "{9E9F46E7-2777-4AAE-9B4F-DCF015166BA2}"
 EndProject
 Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Uhouse.Core.Web", "Uhouse.Core.Web\Uhouse.Core.Web.fsproj", "{8151D495-CE67-443A-B0B2-C09393C2E67A}"
 EndProject
@@ -17,20 +13,16 @@ Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Uhouse.Hardware.DS18S20", "
 EndProject
 Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Test.Uhouse.Hardware.DS18S20", "Test.Uhouse.Hardware.DS18S20\Test.Uhouse.Hardware.DS18S20.fsproj", "{10F0897B-10A5-4A21-B6BA-D97E3EAF320A}"
 EndProject
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Uhouse.Core.PinScheduler", "Uhouse.Core.PinScheduler\Uhouse.Core.PinScheduler.fsproj", "{26313BE2-81EA-4023-8323-1743E4675762}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Test.Uhouse.Core.PinSchedule", "Test.Uhouse.Core.PinSchedule\Test.Uhouse.Core.PinSchedule.fsproj", "{1A4DF909-6A28-47E7-8AB6-96B8A410396E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{60ADE7C7-D690-45E9-86DC-2436BDF9F3EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{60ADE7C7-D690-45E9-86DC-2436BDF9F3EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{60ADE7C7-D690-45E9-86DC-2436BDF9F3EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{60ADE7C7-D690-45E9-86DC-2436BDF9F3EB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9E9F46E7-2777-4AAE-9B4F-DCF015166BA2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9E9F46E7-2777-4AAE-9B4F-DCF015166BA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9E9F46E7-2777-4AAE-9B4F-DCF015166BA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9E9F46E7-2777-4AAE-9B4F-DCF015166BA2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8151D495-CE67-443A-B0B2-C09393C2E67A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8151D495-CE67-443A-B0B2-C09393C2E67A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8151D495-CE67-443A-B0B2-C09393C2E67A}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -47,13 +39,21 @@ Global
 		{10F0897B-10A5-4A21-B6BA-D97E3EAF320A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{10F0897B-10A5-4A21-B6BA-D97E3EAF320A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{10F0897B-10A5-4A21-B6BA-D97E3EAF320A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26313BE2-81EA-4023-8323-1743E4675762}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26313BE2-81EA-4023-8323-1743E4675762}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26313BE2-81EA-4023-8323-1743E4675762}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26313BE2-81EA-4023-8323-1743E4675762}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A4DF909-6A28-47E7-8AB6-96B8A410396E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A4DF909-6A28-47E7-8AB6-96B8A410396E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A4DF909-6A28-47E7-8AB6-96B8A410396E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A4DF909-6A28-47E7-8AB6-96B8A410396E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{9E9F46E7-2777-4AAE-9B4F-DCF015166BA2} = {33069CF8-46E5-43EB-A59A-39B33F07C86C}
 		{10F0897B-10A5-4A21-B6BA-D97E3EAF320A} = {33069CF8-46E5-43EB-A59A-39B33F07C86C}
+		{1A4DF909-6A28-47E7-8AB6-96B8A410396E} = {33069CF8-46E5-43EB-A59A-39B33F07C86C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {32B7D1AF-5CCC-44D8-AD3A-9B15DA41C240}
